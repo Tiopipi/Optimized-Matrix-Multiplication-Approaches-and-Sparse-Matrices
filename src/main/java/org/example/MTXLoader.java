@@ -66,9 +66,8 @@ public class MTXLoader {
         List<Integer> rowIndicesList = new ArrayList<>();
         List<Integer> colPointersList = new ArrayList<>();
 
-        // Leer dimensiones y número de elementos no nulos
         while ((line = reader.readLine()) != null) {
-            if (line.startsWith("%")) continue;  // Saltar comentarios
+            if (line.startsWith("%")) continue;
             String[] dimensions = line.trim().split(" ");
             rows = Integer.parseInt(dimensions[0]);
             cols = Integer.parseInt(dimensions[1]);
@@ -76,10 +75,8 @@ public class MTXLoader {
             break;
         }
 
-        // Inicializar colPointers con el tamaño de columnas + 1
         colPointersList = new ArrayList<>(Collections.nCopies(cols + 1, 0));
 
-        // Leer los datos no nulos y llenar valores y filas
         while ((line = reader.readLine()) != null) {
             String[] values = line.trim().split(" ");
             int row = Integer.parseInt(values[0]) - 1;
@@ -93,7 +90,6 @@ public class MTXLoader {
 
         reader.close();
 
-        // Construir colPointers sumando acumulativamente
         for (int i = 1; i < colPointersList.size(); i++) {
             colPointersList.set(i, colPointersList.get(i) + colPointersList.get(i - 1));
         }
